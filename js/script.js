@@ -1,249 +1,45 @@
-// ==========================================
-// CONTROLE DE DIRETRIZES DE TEMA (CYBER/MATRIX)
-// ==========================================
-const themeToggle = document.getElementById('theme-toggle');
-const themeIcon = themeToggle ? themeToggle.querySelector('i') : null;
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-function applyTheme(theme) {
-    if (theme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-        if (themeIcon) {
-            themeIcon.className = 'fa-solid fa-sun';
-        }
-    } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        if (themeIcon) {
-            themeIcon.className = 'fa-solid fa-moon';
-        }
-    }
-}
+  // Menu mobile
+  const toggle = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.menu');
+  const setMenu = open => {
+    menu.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+  };
+  toggle.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+  menu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
 
-const savedTheme = localStorage.getItem('theme') || 'dark'; // Padrão futurista: Escuro
-applyTheme(savedTheme);
+  // Cabeçalho ganha fundo ao rolar
+  const header = document.querySelector('.site-header');
+  const onScroll = () => header.classList.toggle('scrolled', scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        applyTheme(newTheme);
-        localStorage.setItem('theme', newTheme);
+  if (!fine || reduce) return;
+
+  // Luz suave que segue o cursor e prévia flutuante dos projetos
+  const glow = document.querySelector('.glow');
+  const preview = document.querySelector('.preview');
+  let tx = innerWidth / 2, ty = innerHeight / 3, gx = tx, gy = ty, px = tx, py = ty;
+
+  addEventListener('pointermove', e => { tx = e.clientX; ty = e.clientY; });
+
+  document.querySelectorAll('.project').forEach(p => {
+    p.addEventListener('pointerenter', () => {
+      preview.src = p.dataset.img;
+      preview.classList.add('show');
     });
-}
+    p.addEventListener('pointerleave', () => preview.classList.remove('show'));
+  });
 
-// ==========================================
-// INTERFACE DE MENU EXPANSÍVEL (MOBILE)
-// ==========================================
-const menuToggle = document.querySelector('.menu-toggle');
-const menu = document.querySelector('.menu');
-
-if (menuToggle && menu) {
-    menuToggle.addEventListener('click', () => {
-        menu.classList.toggle('show');
-        menuToggle.classList.toggle('active');
-    });
-
-    // Fecha ao clicar fora ou em algum link da navegação
-    document.addEventListener('click', (event) => {
-        if (!menu.contains(event.target) && !menuToggle.contains(event.target)) {
-            menu.classList.remove('show');
-            menuToggle.classList.remove('active');
-        }
-    });
-
-    menu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            menu.classList.remove('show');
-            menuToggle.classList.remove('active');
-        });
-    });
-}
-
-// ==========================================
-// PERFORMANCE OPTIMIZATION: SCROLL REVEAL via INTERSECTION OBSERVER
-// ==========================================
-const scrollItems = document.querySelectorAll(
-    '.hero-text, .section-title-wrap, .cyber-card, .blog-cyber-card, .skill-card-cyber'
-);
-
-const revealOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
-};
-
-const cyberObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-            // Uma vez revelado, cancela a observação para poupar memória
-            observer.unobserve(entry.target);
-        }
-    });
-}, revealOptions);
-
-scrollItems.forEach(item => {
-    cyberObserver.observe(item);
-});
-
-// ==========================================
-// EFEITO DE DIGITAÇÃO DINÂMICA (TERMINAL TYPEWRITER)
-// ==========================================
-const typeTarget = document.querySelector('.type-target');
-if (typeTarget) {
-    const phrases = [
-        "Desenvolvedor Web",
-        "Especialista Front-End",
-        "Segurança & Soluções Web",
-        "Arquiteto de Interfaces"
-    ];
-    let phraseIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typeSpeed = 100;
-
-    function typeEffect() {
-        const currentPhrase = phrases[phraseIndex];
-        
-        if (isDeleting) {
-            typeTarget.textContent = currentPhrase.substring(0, charIndex - 1);
-            charIndex--;
-            typeSpeed = 40; // Deleta mais rápido
-        } else {
-            typeTarget.textContent = currentPhrase.substring(0, charIndex + 1);
-            charIndex++;
-            typeSpeed = 90; // Velocidade normal escrevendo
-        }
-
-        if (!isDeleting && charIndex === currentPhrase.length) {
-            typeSpeed = 1800; // Tempo parado lendo a frase completa
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            phraseIndex = (phraseIndex + 1) % phrases.length;
-            typeSpeed = 400; // Delay antes de iniciar nova frase
-        }
-
-        setTimeout(typeEffect, typeSpeed);
-    }
-
-    // Inicializa o processo após o carregamento da interface
-    window.addEventListener('DOMContentLoaded', () => {
-        setTimeout(typeEffect, 800);
-    });
-}
-
-// ==========================================
-// LÓGICA DO DROID (INTERAÇÃO E MOVIMENTO)
-// ==========================================
-const glitch = document.getElementById('glitch-overlay');
-const term = document.getElementById('terminal-text');
-
-// Monitorar inatividade (se o usuário parar de ler, o sistema "dorme")
-let idleTime = 0;
-setInterval(() => {
-    idleTime++;
-    if (idleTime > 10) {
-        term.textContent = "SYS: Usuário inativo. Iniciando ciclo de economia de energia...";
-        document.body.style.filter = "grayscale(80%)";
-    }
-}, 1000);
-
-document.addEventListener('mousemove', () => {
-    idleTime = 0;
-    document.body.style.filter = "none";
-});
-
-// Efeito de "Click Frenesi" (se o usuário clicar muito rápido)
-let clickCount = 0;
-document.addEventListener('click', () => {
-    clickCount++;
-    if (clickCount > 10) {
-        glitch.style.opacity = "1";
-        term.textContent = "ALERTA: SOBRECARGA DE EVENTOS DETECTADA!";
-        setTimeout(() => {
-            glitch.style.opacity = "0";
-            clickCount = 0;
-        }, 500);
-    }
-});
-
-// Tecla secreta "Konami Code" para "Hackear" o site
-let kCode = "";
-const secret = "hack";
-document.addEventListener('keydown', (e) => {
-    kCode += e.key;
-    if (kCode.includes(secret)) {
-        alert("ACESSO CONCEDIDO: Protocolo Admin Ativado.");
-        document.body.style.background = "black";
-        term.textContent = "SYS: HACKED BY ADMIN";
-        kCode = "";
-    }
-});
-
-const consoleUI = document.getElementById('god-console');
-const cmdInput = document.getElementById('command-line');
-
-// Atalho: CTRL + K abre o terminal
-window.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.key === 'k') {
-        e.preventDefault();
-        consoleUI.classList.remove('hidden');
-        cmdInput.focus();
-    }
-    if (e.key === 'Escape') consoleUI.classList.add('hidden');
-});
-
-cmdInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        const cmd = cmdInput.value.trim().toLowerCase();
-        
-        // Interpretação dos comandos
-        if (cmd === 'theme-light') {
-            document.documentElement.setAttribute('data-theme', 'light');
-        } else if (cmd === 'glitch') {
-            document.body.classList.add('glitch-active');
-            setTimeout(() => document.body.classList.remove('glitch-active'), 2000);
-        } else if (cmd === 'speed') {
-            document.documentElement.style.setProperty('--scan-speed', '0.5s');
-        } else if (cmd === 'clear') {
-            cmdInput.value = '';
-        }
-        
-        consoleUI.classList.add('hidden');
-        cmdInput.value = '';
-    }
-});
-
-const droid = document.getElementById('droid');
-let mouseX = 0, mouseY = 0;
-let droidX = window.innerWidth - 100, droidY = window.innerHeight - 100;
-
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
-
-function animateDroid() {
-    // Calcula a distância entre o droid e o mouse
-    const dx = mouseX - (droidX + 30);
-    const dy = mouseY - (droidY + 30);
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-
-    
-    // Se o mouse estiver perto (menos de 200px), o droid foge ou segue
-    if (distance < 200) {
-        droidX += dx * 0.05;
-        droidY += dy * 0.05;
-    } else {
-        // Volta para a posição original lentamente
-        droidX += (window.innerWidth - 100 - droidX) * 0.02;
-        droidY += (window.innerHeight - 100 - droidY) * 0.02;
-    }
-
-    droid.style.left = droidX + 'px';
-    droid.style.top = droidY + 'px';
-    
-    requestAnimationFrame(animateDroid);
-}
-
-animateDroid();
+  (function frame() {
+    gx += (tx - gx) * 0.08; gy += (ty - gy) * 0.08;
+    px += (tx - px) * 0.14; py += (ty - py) * 0.14;
+    glow.style.transform = `translate(${gx}px, ${gy}px)`;
+    preview.style.transform = `translate(${px + 24}px, ${py - 110}px)`;
+    requestAnimationFrame(frame);
+  })();
+})();
