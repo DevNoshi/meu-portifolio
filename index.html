@@ -21,6 +21,7 @@
       <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
       <ul class="menu">
         <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#areas">Áreas</a></li>
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#artigos">Artigos</a></li>
         <li><a href="#contato">Contato</a></li>
@@ -86,6 +87,55 @@
       </ul>
     </section>
 
+    <section class="section wrap" id="areas">
+      <h2 class="section-title">Áreas e ferramentas</h2>
+      <p class="section-lead">Um resumo simples de como cada parte de um site funciona.</p>
+      <div class="areas">
+        <details class="area" open>
+          <summary><span class="a-name">Front-end</span><span class="a-sub">A parte que você vê e toca</span></summary>
+          <div class="a-body">
+            <p>É tudo o que roda no navegador: estrutura, visual e interação. O HTML organiza o conteúdo, o CSS cuida da aparência e das animações, e o JavaScript dá vida à página, respondendo a cliques, formulários e dados. Um bom front-end é rápido, acessível e funciona bem em qualquer tela.</p>
+            <ul class="skills"><li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>Design responsivo</li><li>DevTools</li></ul>
+          </div>
+        </details>
+        <details class="area">
+          <summary><span class="a-name">Back-end</span><span class="a-sub">O que acontece nos bastidores</span></summary>
+          <div class="a-body">
+            <p>É o lado do servidor, que o usuário não vê. Ele recebe pedidos do front-end, aplica as regras do sistema, controla quem pode acessar o quê e guarda ou busca informações. Login, pagamentos e envio de e-mails, por exemplo, passam por ele.</p>
+            <ul class="skills"><li>Node.js</li><li>Servidores e rotas</li><li>Autenticação</li><li>Regras de negócio</li></ul>
+          </div>
+        </details>
+        <details class="area">
+          <summary><span class="a-name">Banco de dados</span><span class="a-sub">Onde a informação fica guardada</span></summary>
+          <div class="a-body">
+            <p>É o lugar que armazena os dados de um sistema, como usuários, produtos e pedidos, de forma organizada e consultável. Bancos relacionais usam tabelas ligadas entre si, enquanto os não relacionais guardam documentos mais flexíveis.</p>
+            <ul class="skills"><li>SQL</li><li>Bancos relacionais</li><li>Bancos de documentos</li></ul>
+          </div>
+        </details>
+        <details class="area">
+          <summary><span class="a-name">APIs e integrações</span><span class="a-sub">Como sistemas conversam entre si</span></summary>
+          <div class="a-body">
+            <p>Uma API é um conjunto de regras que permite a um programa pedir dados ou ações a outro. É assim que o Conversor de Moedas busca cotações atualizadas, e é também como um site se conecta a pagamentos, mapas ou bots.</p>
+            <ul class="skills"><li>REST</li><li>JSON</li><li>fetch</li><li>Webhooks</li></ul>
+          </div>
+        </details>
+        <details class="area">
+          <summary><span class="a-name">Segurança digital</span><span class="a-sub">Proteger pessoas e dados</span></summary>
+          <div class="a-body">
+            <p>Segurança começa no código e continua no uso. Isso inclui validar e higienizar tudo o que o usuário digita (contra XSS e injeção de código), usar HTTPS, definir uma política CSP, guardar senhas com hash, nunca expor chaves de API no front-end e manter dependências atualizadas. Para quem usa a internet, valem senhas únicas, verificação em duas etapas e desconfiar de links suspeitos.</p>
+            <ul class="skills"><li>XSS</li><li>CSP</li><li>HTTPS</li><li>Hash de senhas</li><li>Verificação em duas etapas</li></ul>
+          </div>
+        </details>
+        <details class="area">
+          <summary><span class="a-name">Ferramentas do dia a dia</span><span class="a-sub">O que organiza o trabalho</span></summary>
+          <div class="a-body">
+            <p>O Git registra cada alteração do código e permite voltar atrás, e o GitHub guarda os projetos online e publica sites com o GitHub Pages. O editor de código e as ferramentas do navegador ajudam a escrever, testar e corrigir erros.</p>
+            <ul class="skills"><li>Git</li><li>GitHub</li><li>GitHub Pages</li><li>VS Code</li></ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
     <section class="section wrap" id="sobre">
       <h2 class="section-title">Sobre</h2>
       <div class="about">
@@ -108,14 +158,50 @@
 
     <section class="section wrap" id="contato">
       <h2 class="section-title">Contato</h2>
-      <p class="contact-lead">Tem um projeto em mente? Me escreva.</p>
-      <a class="mail" href="mailto:odeusmors@protonmail.com">odeusmors@protonmail.com</a>
-      <p><a class="link" href="https://github.com/DevNoshi" target="_blank" rel="noopener">github.com/DevNoshi</a></p>
+      <p class="section-lead">Tem um projeto em mente? Escolha o canal que preferir.</p>
+      <ul class="contacts">
+        <li>
+          <a class="contact" href="mailto:odeusmors@protonmail.com">
+            <span class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7.5 8 6 8-6"/></svg></span>
+            <span class="c-text"><span class="c-label">E-mail</span><span class="c-value">odeusmors@protonmail.com</span></span>
+            <span class="c-go">Enviar mensagem</span>
+          </a>
+        </li>
+        <li>
+          <a class="contact" href="https://github.com/odeusmors" target="_blank" rel="noopener">
+            <span class="c-icon"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg></span>
+            <span class="c-text"><span class="c-label">GitHub</span><span class="c-value">github.com/odeusmors</span></span>
+            <span class="c-go">Ver perfil</span>
+          </a>
+        </li>
+        <li>
+          <a class="contact" href="https://discord.gg/DvVhXRNBd" target="_blank" rel="noopener">
+            <span class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.55L3 20.5l1.45-5.2A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg></span>
+            <span class="c-text"><span class="c-label">Discord</span><span class="c-value">Comunidade no Discord</span></span>
+            <span class="c-go">Entrar</span>
+          </a>
+        </li>
+      </ul>
     </section>
   </main>
 
-  <footer class="site-footer wrap">
-    <p>&copy; 2026 Dev Noshi</p>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="f-top">
+        <div>
+          <p class="f-brand">Dev Noshi</p>
+          <p class="f-note">Ferramentas e aplicativos que ajudam a criar, testar, publicar e proteger um site.</p>
+        </div>
+        <a href="#inicio" class="link">Voltar ao topo</a>
+      </div>
+      <div class="f-grid">
+        <div><h3>Escrever código</h3><ul><li><a href="https://code.visualstudio.com" target="_blank" rel="noopener">Visual Studio Code</a></li><li><a href="https://git-scm.com" target="_blank" rel="noopener">Git</a></li><li><a href="https://github.com" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://developer.mozilla.org" target="_blank" rel="noopener">MDN Web Docs</a></li></ul></div>
+        <div><h3>Testar e depurar</h3><ul><li><a href="https://developer.chrome.com/docs/devtools" target="_blank" rel="noopener">Chrome DevTools</a></li><li><a href="https://www.postman.com" target="_blank" rel="noopener">Postman</a></li><li><a href="https://developer.chrome.com/docs/lighthouse" target="_blank" rel="noopener">Lighthouse</a></li></ul></div>
+        <div><h3>Design e publicação</h3><ul><li><a href="https://www.figma.com" target="_blank" rel="noopener">Figma</a></li><li><a href="https://pages.github.com" target="_blank" rel="noopener">GitHub Pages</a></li><li><a href="https://www.netlify.com" target="_blank" rel="noopener">Netlify</a></li><li><a href="https://vercel.com" target="_blank" rel="noopener">Vercel</a></li></ul></div>
+        <div><h3>Segurança</h3><ul><li><a href="https://bitwarden.com" target="_blank" rel="noopener">Bitwarden</a></li><li><a href="https://getaegis.app" target="_blank" rel="noopener">Aegis e Google Authenticator</a></li><li><a href="https://owasp.org" target="_blank" rel="noopener">OWASP</a></li><li><a href="https://haveibeenpwned.com" target="_blank" rel="noopener">Have I Been Pwned</a></li></ul></div>
+      </div>
+      <p class="f-copy">&copy; 2026 Dev Noshi</p>
+    </div>
   </footer>
 
   <img class="preview" alt="" aria-hidden="true">
